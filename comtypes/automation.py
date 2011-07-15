@@ -368,52 +368,12 @@ class tagVARIANT(Structure):
     # c:/sf/pywin32/com/win32com/src/oleargs.cpp 197
     def _get_value(self, dynamic=False):
         vt = self.vt
-        if vt in (VT_EMPTY, VT_NULL):
-            return None
-        elif vt == VT_I1:
-            return self._.VT_I1
-        elif vt == VT_I2:
-            return self._.VT_I2
-        elif vt == VT_I4:
+        if vt == VT_I4:
             return self._.VT_I4
-        elif vt == VT_I8:
-            return self._.VT_I8
-        elif vt == VT_UI8:
-            return self._.VT_UI8
-        elif vt == VT_INT:
-            return self._.VT_INT
         elif vt == VT_UI1:
             return self._.VT_UI1
-        elif vt == VT_UI2:
-            return self._.VT_UI2
-        elif vt == VT_UI4:
-            return self._.VT_UI4
-        elif vt == VT_UINT:
-            return self._.VT_UINT
-        elif vt == VT_R4:
-            return self._.VT_R4
-        elif vt == VT_R8:
-            return self._.VT_R8
-        elif vt == VT_BOOL:
-            return self._.VT_BOOL
         elif vt == VT_BSTR:
             return self._.bstrVal
-        elif vt == VT_DATE:
-            days = self._.VT_R8
-            return datetime.timedelta(days=days) + _com_null_date
-        elif vt == VT_CY:
-            return self._.VT_CY / decimal.Decimal("10000")
-        elif vt == VT_UNKNOWN:
-            val = self._.c_void_p
-            if not val:
-                # We should/could return a NULL COM pointer.
-                # But the code generation must be able to construct one
-                # from the __repr__ of it.
-                return None # XXX?
-            ptr = cast(val, POINTER(IUnknown))
-            # cast doesn't call AddRef (it should, imo!)
-            ptr.AddRef()
-            return ptr.__ctypes_from_outparam__()
         elif vt == VT_DECIMAL:
             return self.decVal.as_decimal()
         elif vt == VT_DISPATCH:
@@ -430,29 +390,6 @@ class tagVARIANT(Structure):
                 from comtypes.client.dynamic import Dispatch
                 return Dispatch(ptr)
         # see also c:/sf/pywin32/com/win32com/src/oleargs.cpp
-        elif self.vt & VT_BYREF:
-            return self
-        elif vt == VT_RECORD:
-            from comtypes.client import GetModule
-            from comtypes.typeinfo import IRecordInfo
-
-            # Retrieving a COM pointer from a structure field does NOT
-            # call AddRef(), have to call it manually:
-            punk = self._.pRecInfo
-            punk.AddRef()
-            ri = punk.QueryInterface(IRecordInfo)
-
-            # find typelib
-            tlib = ri.GetTypeInfo().GetContainingTypeLib()[0]
-
-            # load typelib wrapper module
-            mod = GetModule(tlib)
-            # retrive the type and create an instance
-            value = getattr(mod, ri.GetName())()
-            # copy data into the instance
-            ri.RecordCopy(self._.pvRecord, byref(value))
-
-            return value
         elif self.vt & VT_ARRAY:
             typ = _vartype_to_ctype[self.vt & ~VT_ARRAY]
             return cast(self._.pparray, _midlSAFEARRAY(typ)).unpack()
@@ -553,20 +490,7 @@ class _(object):
     # InternetExplorer's Navigate2() method, or Word's Close() method, for
     # examples.
     def from_param(cls, arg):
-        # accept POINTER(VARIANT) instance
-        if isinstance(arg, POINTER(VARIANT)):
-            return arg
-        # accept byref(VARIANT) instance
-        if isinstance(arg, _carg_obj) and isinstance(arg._obj, VARIANT):
-            return arg
-        # accept VARIANT instance
-        if isinstance(arg, VARIANT):
-            return byref(arg)
-        if isinstance(arg, _CArrayType) and arg._type_ is VARIANT:
-            # accept array of VARIANTs
-            return arg
-        # anything else which can be converted to a VARIANT.
-        return byref(VARIANT(arg))
+        return byref(arg)
     from_param = classmethod(from_param)
 
     def __setitem__(self, index, value):
