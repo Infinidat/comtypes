@@ -152,7 +152,6 @@ def CoInitializeEx(flags=None):
             flags = getattr(sys, "coinit_flags", COINIT_MULTITHREADED)
         else:
             flags = getattr(sys, "coinit_flags", COINIT_APARTMENTTHREADED)
-    logger.debug("CoInitializeEx(None, %s)", flags)
     _ole32.CoInitializeEx(None, flags)
 
 # COM is initialized automatically for the thread that imports this
@@ -168,7 +167,6 @@ CoInitializeEx()
 # to initialize and uninitialize COM for every new thread (except main)
 # in which we are using COM
 def CoUninitialize():
-    logger.debug("CoUninitialize()")
     _ole32_nohresult.CoUninitialize()
 
 
@@ -180,7 +178,6 @@ def shutdown(func=_ole32_nohresult.CoUninitialize,
     # Sometimes, CoUnititialize, running at Python shutdown,
     # raises an exception.  We suppress this when __debug__ is
     # False.
-    _debug("Calling CoUnititialize()")
     if __debug__:
         func()
     else:
@@ -190,7 +187,6 @@ def shutdown(func=_ole32_nohresult.CoUninitialize,
     # needed.
     if _cominterface_meta is not None:
         _cominterface_meta._com_shutting_down = True
-    _debug("CoUnititialize() done.")
 
 import atexit
 atexit.register(shutdown)
@@ -913,7 +909,6 @@ class _compointer_base(c_void_p):
             # _com_shutting_down flag.
             #
             if not type(self)._com_shutting_down:
-                _debug("Release %s", self)
                 self.Release()
 
     def __cmp__(self, other):

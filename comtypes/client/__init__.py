@@ -37,7 +37,6 @@ import comtypes.gen
 ##gen_dir = None
 
 def wrap_outparam(punk):
-    logger.debug("wrap_outparam(%s)", punk)
     if not punk:
         return None
     if punk.__com_interface__ == comtypes.automation.IDispatch:
@@ -56,17 +55,13 @@ def GetBestInterface(punk):
     if not punk: # NULL COM pointer
         return punk # or should we return None?
     # find the typelib and the interface name
-    logger.debug("GetBestInterface(%s)", punk)
     try:
         try:
             pci = punk.QueryInterface(comtypes.typeinfo.IProvideClassInfo)
-            logger.debug("Does implement IProvideClassInfo")
         except comtypes.COMError:
             # Some COM objects support IProvideClassInfo2, but not IProvideClassInfo.
             # These objects are broken, but we support them anyway.
-            logger.debug("Does NOT implement IProvideClassInfo, trying IProvideClassInfo2")
             pci = punk.QueryInterface(comtypes.typeinfo.IProvideClassInfo2)
-            logger.debug("Does implement IProvideClassInfo2")
         tinfo = pci.GetClassInfo() # TypeInfo for the CoClass
         # find the interface marked as default
         ta = tinfo.GetTypeAttr()
@@ -83,24 +78,19 @@ def GetBestInterface(punk):
         href = tinfo.GetRefTypeOfImplType(index)
         tinfo = tinfo.GetRefTypeInfo(href)
     except comtypes.COMError:
-        logger.debug("Does NOT implement IProvideClassInfo/IProvideClassInfo2")
         try:
             pdisp = punk.QueryInterface(comtypes.automation.IDispatch)
         except comtypes.COMError:
-            logger.debug("No Dispatch interface: %s", punk)
             return punk
         try:
             tinfo = pdisp.GetTypeInfo(0)
         except comtypes.COMError:
             pdisp = comtypes.client.dynamic.Dispatch(pdisp)
-            logger.debug("IDispatch.GetTypeInfo(0) failed: %s" % pdisp)
             return pdisp
     typeattr = tinfo.GetTypeAttr()
-    logger.debug("Default interface is %s", typeattr.guid)
     try:
         punk.QueryInterface(comtypes.IUnknown, typeattr.guid)
     except comtypes.COMError:
-        logger.debug("Does not implement default interface, returning dynamic object")
         return comtypes.client.dynamic.Dispatch(punk)
 
     itf_name = tinfo.GetDocumentation(-1)[0] # interface name
@@ -110,7 +100,6 @@ def GetBestInterface(punk):
     mod = GetModule(tlib)
     # Python interface class
     interface = getattr(mod, itf_name)
-    logger.debug("Implements default interface from typeinfo %s", interface)
     # QI for this interface
     # XXX
     # What to do if this fails?
@@ -124,7 +113,6 @@ def GetBestInterface(punk):
     # Could the above code, as an optimization, check that QI works,
     # *before* generating the wrapper module?
     result = punk.QueryInterface(interface)
-    logger.debug("Final result is %s", result)
     return result
 # backwards compatibility:
 wrap = GetBestInterface
@@ -225,7 +213,6 @@ def CreateObject(progid,                  # which object to create
     You can also later request to receive events with GetEvents().
     """
     clsid = comtypes.GUID.from_progid(progid)
-    logger.debug("%s -> %s", progid, clsid)
     if dynamic:
         if interface:
             raise ValueError("interface and dynamic are mutually exclusive")
@@ -233,13 +220,8 @@ def CreateObject(progid,                  # which object to create
     elif interface is None:
         interface = getattr(progid, "_com_interfaces_", [None])[0]
     if machine is None and pServerInfo is None:
-        logger.debug("CoCreateInstance(%s, clsctx=%s, interface=%s)",
-                     clsid, clsctx, interface)
         obj = comtypes.CoCreateInstance(clsid, clsctx=clsctx, interface=interface)
     else:
-        logger.debug("CoCreateInstanceEx(%s, clsctx=%s, interface=%s, machine=%s,\
-                        pServerInfo=%s)",
-                     clsid, clsctx, interface, machine, pServerInfo)
         if machine is not None and pServerInfo is not None:
             msg = "You can notset both the machine name and server info."
             raise ValueError(msg)
