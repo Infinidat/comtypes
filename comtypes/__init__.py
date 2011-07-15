@@ -178,11 +178,10 @@ def shutdown(func=_ole32_nohresult.CoUninitialize,
     # Sometimes, CoUnititialize, running at Python shutdown,
     # raises an exception.  We suppress this when __debug__ is
     # False.
-    if __debug__:
+    try:
         func()
-    else:
-        try: func()
-        except WindowsError: pass
+    except WindowsError:
+        pass
     # Set the flag which means that calling obj.Release() is no longer
     # needed.
     if _cominterface_meta is not None:
