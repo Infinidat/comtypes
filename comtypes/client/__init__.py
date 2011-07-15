@@ -36,11 +36,13 @@ import comtypes.gen
 ### for testing
 ##gen_dir = None
 
+from comtypes.gen._565783C6_CB41_11D1_8B02_00600806D9B6_0_1_2 import ISWbemObjectEx
+
 def wrap_outparam(punk):
     if not punk:
         return None
     if punk.__com_interface__ == comtypes.automation.IDispatch:
-        return GetBestInterface(punk)
+        return punk.QueryInterface(ISWbemObjectEx)
     return punk
 
 def GetBestInterface(punk):
