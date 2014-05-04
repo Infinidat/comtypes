@@ -136,6 +136,7 @@ setup_params = dict(
         "comtypes.server",
         "comtypes.tools",
         "comtypes.test",
+        "comtypes.gen",
     ],
 )
 
