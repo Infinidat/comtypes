@@ -154,15 +154,6 @@ def CoInitializeEx(flags=None):
             flags = getattr(sys, "coinit_flags", COINIT_APARTMENTTHREADED)
     _ole32.CoInitializeEx(None, flags)
 
-# COM is initialized automatically for the thread that imports this
-# module for the first time.  sys.coinit_flags is passed as parameter
-# to CoInitializeEx, if defined, otherwise COINIT_APARTMENTTHREADED
-# (COINIT_MULTITHREADED on Windows CE) is used.
-#
-# A shutdown function is registered with atexit, so that
-# CoUninitialize is called when Python is shut down.
-CoInitializeEx()
-
 # We need to have CoUninitialize for multithreaded model where we have
 # to initialize and uninitialize COM for every new thread (except main)
 # in which we are using COM
@@ -187,9 +178,24 @@ def shutdown(func=_ole32_nohresult.CoUninitialize,
     if _cominterface_meta is not None:
         _cominterface_meta._com_shutting_down = True
 
-import atexit
-atexit.register(shutdown)
-del shutdown
+# COM is initialized automatically for the thread that imports this
+# module for the first time.  sys.coinit_flags is passed as parameter
+# to CoInitializeEx, if defined, otherwise COINIT_APARTMENTTHREADED
+# (COINIT_MULTITHREADED on Windows CE) is used.
+#
+# A shutdown function is registered with atexit, so that
+# CoUninitialize is called when Python is shut down.
+try:
+    CoInitializeEx()
+    import atexit
+    atexit.register(shutdown)
+except WindowsError, e:
+    if e.winerror == -2147417850: # Cannot change thread mode after it is set
+        pass  # don't register shutdown
+    else:
+        raise
+finally:
+    del shutdown
 
 ################################################################
 # global registries.
