@@ -368,10 +368,34 @@ class tagVARIANT(Structure):
     # c:/sf/pywin32/com/win32com/src/oleargs.cpp 197
     def _get_value(self, dynamic=False):
         vt = self.vt
-        if vt == VT_I4:
+        if vt in (VT_EMPTY, VT_NULL):
+            return None
+        elif vt == VT_I1:
+            return self._.VT_I1
+        elif vt == VT_I2:
+            return self._.VT_I2
+        elif vt == VT_I4:
             return self._.VT_I4
+        elif vt == VT_I8:
+            return self._.VT_I8
+        elif vt == VT_UI8:
+            return self._.VT_UI8
+        elif vt == VT_INT:
+            return self._.VT_INT
         elif vt == VT_UI1:
             return self._.VT_UI1
+        elif vt == VT_UI2:
+            return self._.VT_UI2
+        elif vt == VT_UI4:
+            return self._.VT_UI4
+        elif vt == VT_UINT:
+            return self._.VT_UINT
+        elif vt == VT_R4:
+            return self._.VT_R4
+        elif vt == VT_R8:
+            return self._.VT_R8
+        elif vt == VT_BOOL:
+            return self._.VT_BOOL
         elif vt == VT_BSTR:
             return self._.bstrVal
         elif vt == VT_DECIMAL:
@@ -490,7 +514,20 @@ class _(object):
     # InternetExplorer's Navigate2() method, or Word's Close() method, for
     # examples.
     def from_param(cls, arg):
-        return byref(arg)
+        # accept POINTER(VARIANT) instance
+        if isinstance(arg, POINTER(VARIANT)):
+            return arg
+        # accept byref(VARIANT) instance
+        if isinstance(arg, _carg_obj) and isinstance(arg._obj, VARIANT):
+            return arg
+        # accept VARIANT instance
+        if isinstance(arg, VARIANT):
+            return byref(arg)
+        if isinstance(arg, _CArrayType) and arg._type_ is VARIANT:
+            # accept array of VARIANTs
+            return arg
+        # anything else which can be converted to a VARIANT.
+        return byref(VARIANT(arg))
     from_param = classmethod(from_param)
 
     def __setitem__(self, index, value):
