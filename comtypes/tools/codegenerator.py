@@ -213,7 +213,7 @@ class Generator(object):
         self.filename = filename
         if filename is not None:
             # Hm, what is the CORRECT encoding?
-            print >> self.output, "# -*- coding: mbcs -*-"
+            print >> self.output, "# -*- coding: utf-8 -*-"
             if os.path.isabs(filename):
                 # absolute path
                 print >> self.output, "typelib_path = %r" % filename

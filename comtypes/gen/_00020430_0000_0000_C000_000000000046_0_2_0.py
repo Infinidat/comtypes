@@ -1,4 +1,4 @@
-# -*- coding: mbcs -*-
+# -*- coding: utf-8 -*-
 typelib_path = u'C:\\Windows\\system32\\stdole2.tlb'
 _lcid = 0 # change this if required
 from ctypes import *
@@ -144,7 +144,7 @@ IFont._methods_ = [
 ##
 ##    def SetRatio(self, cyLogical, cyHimetric):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def Clone(self):
 ##        '-no docstring-'
@@ -173,11 +173,11 @@ IFont._methods_ = [
 ##
 ##    def IsEqual(self, pfontOther):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def AddRefHfont(self, hFont):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        '-no docstring-'
@@ -195,7 +195,7 @@ IFont._methods_ = [
 ##
 ##    def ReleaseHfont(self, hFont):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        '-no docstring-'
@@ -307,15 +307,15 @@ IPicture._methods_ = [
 ##
 ##    def Render(self, hdc, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, prcWBounds):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def SetHdc(self, hdc):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    def PictureChanged(self):
 ##        '-no docstring-'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def Height(self):

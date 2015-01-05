@@ -228,7 +228,7 @@ class Parser(object):
 
             func = typedesc.Function(func_name, returns, attributes, extern=1)
             if func_doc is not None:
-                func.doc = func_doc.encode("mbcs")
+                func.doc = func_doc.encode("utf-8")
             func.dllname = dllname
             self._register(func_name, func)
             for i in range(fd.cParams):

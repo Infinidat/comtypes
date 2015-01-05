@@ -1,4 +1,4 @@
-# -*- coding: mbcs -*-
+# -*- coding: utf-8 -*-
 typelib_path = u'C:\\Windows\\system32\\wbem\\wbemdisp.TLB'
 _lcid = 0 # change this if required
 from ctypes import *
@@ -206,7 +206,7 @@ ISWbemRefresher._methods_ = [
 ##
 ##    def Remove(self, iIndex, iFlags):
 ##        u'Remove an item from this refresher'
-##        #return 
+##        #return
 ##
 ##    def Item(self, iIndex):
 ##        u'Get an item from this refresher'
@@ -218,11 +218,11 @@ ISWbemRefresher._methods_ = [
 ##
 ##    def DeleteAll(self):
 ##        u'Delete all items in this collection'
-##        #return 
+##        #return
 ##
 ##    def Refresh(self, iFlags):
 ##        u'Refresh all items in this collection'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        u'Whether to attempt auto-reconnection to a remote provider'
@@ -392,11 +392,11 @@ ISWbemServices._methods_ = [
 ##
 ##    def AssociatorsOfAsync(self, objWbemSink, strObjectPath, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Get the Associators of a class or instance asynchronously'
-##        #return 
+##        #return
 ##
 ##    def SubclassesOfAsync(self, objWbemSink, strSuperclass, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Enumerate the subclasses of a Class asynchronously '
-##        #return 
+##        #return
 ##
 ##    def Get(self, strObjectPath, iFlags, objWbemNamedValueSet):
 ##        u'Get a single Class or Instance'
@@ -404,7 +404,7 @@ ISWbemServices._methods_ = [
 ##
 ##    def GetAsync(self, objWbemSink, strObjectPath, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Get a single Class or Instance asynchronously'
-##        #return 
+##        #return
 ##
 ##    def ReferencesTo(self, strObjectPath, strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet):
 ##        u'Get the References to a class or instance'
@@ -412,7 +412,7 @@ ISWbemServices._methods_ = [
 ##
 ##    def ExecNotificationQueryAsync(self, objWbemSink, strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Execute an asynchronous Query to receive Notifications'
-##        #return 
+##        #return
 ##
 ##    def SubclassesOf(self, strSuperclass, iFlags, objWbemNamedValueSet):
 ##        u'Enumerate the subclasses of a Class'
@@ -428,15 +428,15 @@ ISWbemServices._methods_ = [
 ##
 ##    def InstancesOfAsync(self, objWbemSink, strClass, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Enumerate the Instances of a Class asynchronously'
-##        #return 
+##        #return
 ##
 ##    def DeleteAsync(self, objWbemSink, strObjectPath, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Delete a Class or Instance asynchronously'
-##        #return 
+##        #return
 ##
 ##    def ExecQueryAsync(self, objWbemSink, strQuery, strQueryLanguage, lFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Execute an asynchronous Query'
-##        #return 
+##        #return
 ##
 ##    def AssociatorsOf(self, strObjectPath, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet):
 ##        u'Get the Associators of a class or instance'
@@ -448,11 +448,11 @@ ISWbemServices._methods_ = [
 ##
 ##    def ReferencesToAsync(self, objWbemSink, strObjectPath, strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Get the References to a class or instance asynchronously'
-##        #return 
+##        #return
 ##
 ##    def ExecMethodAsync(self, objWbemSink, strObjectPath, strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Execute a Method asynchronously'
-##        #return 
+##        #return
 ##
 ##    def ExecQuery(self, strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet):
 ##        u'Execute a Query'
@@ -460,7 +460,7 @@ ISWbemServices._methods_ = [
 ##
 ##    def Delete(self, strObjectPath, iFlags, objWbemNamedValueSet):
 ##        u'Delete a Class or Instance'
-##        #return 
+##        #return
 ##
 
 class ISWbemObjectEx(ISWbemObject):
@@ -500,7 +500,7 @@ ISWbemServicesEx._methods_ = [
 ##
 ##    def PutAsync(self, objWbemSink, objWbemObject, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Save the Object to this Namespace asynchronously'
-##        #return 
+##        #return
 ##
 
 
@@ -570,7 +570,7 @@ ISWbemNamedValueSet._methods_ = [
 ##
 ##    def Remove(self, strName, iFlags):
 ##        u'Remove a named value from this collection'
-##        #return 
+##        #return
 ##
 ##    def Item(self, strName, iFlags):
 ##        u'Get a named value from this Collection'
@@ -582,7 +582,7 @@ ISWbemNamedValueSet._methods_ = [
 ##
 ##    def DeleteAll(self):
 ##        u'Delete all items in this collection'
-##        #return 
+##        #return
 ##
 
 class SWbemRefreshableItem(CoClass):
@@ -601,7 +601,7 @@ ISWbemSink._methods_ = [
 ##class ISWbemSink_Impl(object):
 ##    def Cancel(self):
 ##        u'Cancel an asynchronous operation'
-##        #return 
+##        #return
 ##
 
 ISWbemNamedValue._methods_ = [
@@ -844,7 +844,7 @@ ISWbemQualifierSet._methods_ = [
 ##
 ##    def Remove(self, strName, iFlags):
 ##        u'Remove a Qualifier from this collection'
-##        #return 
+##        #return
 ##
 
 class SWbemProperty(CoClass):
@@ -894,7 +894,7 @@ ISWbemRefreshableItem._methods_ = [
 ##
 ##    def Remove(self, iFlags):
 ##        u'Remove this item from the parent refresher'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def ObjectSet(self):
@@ -997,7 +997,7 @@ ISWbemPrivilegeSet._methods_ = [
 ##
 ##    def Remove(self, iPrivilege):
 ##        u'Remove a Privilege from this collection'
-##        #return 
+##        #return
 ##
 ##    def Item(self, iPrivilege):
 ##        u'Get a named Privilege from this collection'
@@ -1009,7 +1009,7 @@ ISWbemPrivilegeSet._methods_ = [
 ##
 ##    def DeleteAll(self):
 ##        u'Delete all items in this collection'
-##        #return 
+##        #return
 ##
 ##    def AddAsString(self, strPrivilege, bIsEnabled):
 ##        u'Add a named Privilege to this collection'
@@ -1151,7 +1151,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def DeleteAsync_(self, objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Delete this Object asynchronously'
-##        #return 
+##        #return
 ##
 ##    def CompareTo_(self, objWbemObject, iFlags):
 ##        u'Compare this Object with another'
@@ -1159,7 +1159,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def Delete_(self, iFlags, objWbemNamedValueSet):
 ##        u'Delete this Object'
-##        #return 
+##        #return
 ##
 ##    def Clone_(self):
 ##        u'Clone this Object'
@@ -1167,7 +1167,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def InstancesAsync_(self, objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Return all instances of this Class asynchronously'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def Security_(self):
@@ -1176,7 +1176,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def AssociatorsAsync_(self, objWbemSink, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Get the Associators of this Object asynchronously'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def Qualifiers_(self):
@@ -1207,7 +1207,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def ReferencesAsync_(self, objWbemSink, strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Get the References to this Object asynchronously'
-##        #return 
+##        #return
 ##
 ##    def Subclasses_(self, iFlags, objWbemNamedValueSet):
 ##        u'Enumerate subclasses of this Class'
@@ -1215,7 +1215,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def PutAsync_(self, objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Save this Object asynchronously'
-##        #return 
+##        #return
 ##
 ##    def Associators_(self, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet):
 ##        u'Get the Associators of this Object'
@@ -1223,7 +1223,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def SubclassesAsync_(self, objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Enumerate subclasses of this Class asynchronously'
-##        #return 
+##        #return
 ##
 ##    def SpawnInstance_(self, iFlags):
 ##        u'Create an Instance of this Object'
@@ -1231,7 +1231,7 @@ ISWbemObject._methods_ = [
 ##
 ##    def ExecMethodAsync_(self, objWbemSink, strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet, objWbemAsyncContext):
 ##        u'Execute a Method of this Object asynchronously'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def Methods_(self):
@@ -1283,11 +1283,11 @@ ISWbemObjectEx._methods_ = [
 ##
 ##    def Refresh_(self, iFlags, objWbemNamedValueSet):
 ##        u'Refresh this Object'
-##        #return 
+##        #return
 ##
 ##    def SetFromText_(self, bsText, iObjectTextFormat, iFlags, objWbemNamedValueSet):
 ##        u'Set this Object using the supplied textual representation'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def SystemProperties_(self):
@@ -1478,7 +1478,7 @@ ISWbemDateTime._methods_ = [
 ##
 ##    def SetVarDate(self, dVarDate, bIsLocal):
 ##        u'Set the value using Variant compatible (VT_DATE) format'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        u'Whether the Minutes component is specified'
@@ -1517,7 +1517,7 @@ ISWbemDateTime._methods_ = [
 ##
 ##    def SetFileTime(self, strFileTime, bIsLocal):
 ##        u'Set the value using FILETIME compatible string representation'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        u'The Hours component of the value (must be in the range 0-23)'
@@ -1673,7 +1673,7 @@ ISWbemPropertySet._methods_ = [
 ##
 ##    def Remove(self, strName, iFlags):
 ##        u'Remove a Property from this collection'
-##        #return 
+##        #return
 ##
 
 class SWbemDateTime(CoClass):
@@ -1748,7 +1748,7 @@ ISWbemObjectPath._methods_ = [
 ##
 ##    def SetAsClass(self):
 ##        u'Coerce this path to address a Class'
-##        #return 
+##        #return
 ##
 ##    def _get(self):
 ##        u'The Display Name for this path'
@@ -1802,7 +1802,7 @@ ISWbemObjectPath._methods_ = [
 ##
 ##    def SetAsSingleton(self):
 ##        u'Coerce this path to address a Singleton Instance'
-##        #return 
+##        #return
 ##
 ##    @property
 ##    def IsSingleton(self):
